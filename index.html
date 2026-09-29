@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Not By Blood ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#020309;
+    color:#fff;
+    font-family:Montserrat,sans-serif;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% 45%,#131a30 0%,#060812 42%,#010207 100%);
+}
+
+/* =========================
+   CINEMATIC BARS
+========================= */
+
+.bar{
+    position:fixed;
+    left:0;
+    width:100%;
+    height:7vh;
+    background:#000;
+    z-index:1000;
+    pointer-events:none;
+}
+
+.bar.top{top:0}
+.bar.bottom{bottom:0}
+
+/* =========================
+   GRAIN
+========================= */
+
+#grain{
+    position:fixed;
+    inset:-50%;
+    z-index:900;
+    pointer-events:none;
+    opacity:.06;
+
+    background-image:
+        repeating-radial-gradient(
+            circle at 0 0,
+            transparent 0,
+            rgba(255,255,255,.8) 1px,
+            transparent 2px
+        );
+
+    background-size:5px 5px;
+
+    animation:grain .18s steps(2) infinite;
+}
+
+@keyframes grain{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(2%,-2%)}
+    50%{transform:translate(-2%,2%)}
+    75%{transform:translate(2%,2%)}
+    100%{transform:translate(-2%,-2%)}
+}
+
+/* =========================
+   VIGNETTE
+========================= */
+
+#vignette{
+    position:fixed;
+    inset:0;
+    z-index:850;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 25%,
+            rgba(0,0,0,.35) 65%,
+            rgba(0,0,0,.96) 100%
+        );
+}
+
+/* =========================
+   STARS
+========================= */
+
+#stars{
+    position:absolute;
+    inset:0;
+    z-index:1;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#fff;
+
+    animation:twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:.15;
+        transform:scale(.7);
+    }
+
+    50%{
+        opacity:.9;
+        transform:scale(1.5);
+    }
+}
+
+/* =========================
+   MOON
+========================= */
+
+#moon{
+    position:absolute;
+
+    width:115px;
+    height:115px;
+
+    right:10%;
+    top:13%;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff,
+            #dce4ff 48%,
+            #818bab
+        );
+
+    box-shadow:
+        0 0 40px rgba(200,215,255,.35),
+        0 0 100px rgba(120,150,255,.12);
+
+    opacity:.65;
+
+    z-index:2;
+}
+
+@media(max-width:600px){
+    #moon{
+        width:65px;
+        height:65px;
+    }
+}
+
+/* =========================
+   SHOOTING STARS
+========================= */
+
+.shooting-star{
+    position:absolute;
+
+    width:120px;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.9)
+        );
+
+    transform:rotate(-35deg);
+
+    z-index:4;
+
+    animation:shoot 1.5s linear forwards;
+}
+
+@keyframes shoot{
+    from{
+        transform:translate(0,0) rotate(-35deg);
+        opacity:0;
+    }
+
+    20%{opacity:1}
+
+    to{
+        transform:translate(-500px,350px) rotate(-35deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+#particles{
+    position:absolute;
+    inset:0;
+    z-index:3;
+}
+
+.particle{
+    position:absolute;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:#b8c8ff;
+
+    box-shadow:
+        0 0 10px rgba(180,200,255,.7);
+
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    15%{opacity:.7}
+
+    85%{opacity:.7}
+
+    to{
+        transform:translateY(-20vh);
+        opacity:0;
+    }
+}
+
+/* =========================
+   RAIN
+========================= */
+
+#rain{
+    position:absolute;
+    inset:0;
+
+    z-index:5;
+
+    opacity:0;
+
+    transition:opacity 2s;
+
+    pointer-events:none;
+}
+
+.drop{
+    position:absolute;
+
+    width:1px;
+    height:55px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(180,210,255,.5)
+        );
+
+    animation:rainFall linear infinite;
+}
+
+@keyframes rainFall{
+    from{
+        transform:translateY(-100px);
+    }
+
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+/* =========================
+   SCENES
+========================= */
+
+.scene{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:40px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:
+        scale(1.06)
+        translateY(15px);
+
+    transition:
+        opacity 1.4s ease,
+        transform 2s cubic-bezier(.22,1,.36,1);
+
+    z-index:20;
+}
+
+.scene.active{
+    opacity:1;
+    visibility:visible;
+
+    transform:
+        scale(1)
+        translateY(0);
+}
+
+.scene.exit{
+    opacity:0;
+    transform:scale(1.09);
+}
+
+.content{
+    width:min(900px,92vw);
+    text-align:center;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+.small{
+    font-size:11px;
+
+    letter-spacing:5px;
+
+    color:#9ca8c8;
+
+    text-transform:uppercase;
+
+    margin-bottom:25px;
+}
+
+.title{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(45px,9vw,95px);
+
+    font-weight:300;
+
+    line-height:1.02;
+
+    text-shadow:
+        0 0 35px rgba(190,210,255,.2);
+}
+
+.subtitle{
+    margin-top:28px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(22px,4vw,42px);
+
+    line-height:1.45;
+
+    color:#dbe3fa;
+}
+
+/* =========================
+   CINEMATIC MEMORY CARD
+========================= */
+
+.memory-stage{
+    position:relative;
+
+    width:min(520px,88vw);
+    height:min(500px,62vh);
+
+    perspective:1200px;
+}
+
+/* Floating card */
+
+.memory-card{
+    position:absolute;
+
+    inset:8% 8%;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.015)
+        );
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.75),
+        inset 0 0 50px rgba(150,170,255,.04);
+
+    backdrop-filter:blur(5px);
+
+    transform:
+        rotateX(7deg)
+        rotateY(-9deg)
+        rotateZ(-2deg);
+
+    overflow:hidden;
+
+    animation:
+        memoryFloat 6s ease-in-out infinite;
+}
+
+@keyframes memoryFloat{
+
+    0%,100%{
+        transform:
+            rotateX(7deg)
+            rotateY(-9deg)
+            rotateZ(-2deg)
+            translateY(0);
+    }
+
+    50%{
+        transform:
+            rotateX(3deg)
+            rotateY(5deg)
+            rotateZ(1deg)
+            translateY(-15px);
+    }
+}
+
+/* Fake film image */
+
+.memory-image{
+    position:absolute;
+
+    inset:18px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #30384e,
+            #101522 50%,
+            #252d43
+        );
+}
+
+/* Light inside memory */
+
+.memory-image::before{
+    content:"";
+
+    position:absolute;
+    inset:-30%;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(255,220,170,.25),
+            transparent 20%
+        ),
+        radial-gradient(
+            circle at 70% 70%,
+            rgba(130,160,255,.22),
+            transparent 25%
+        ),
+        linear-gradient(
+            125deg,
+            transparent 20%,
+            rgba(255,255,255,.09),
+            transparent 55%
+        );
+
+    animation:memoryLight 5s ease-in-out infinite;
+}
+
+@keyframes memoryLight{
+    0%,100%{
+        transform:translateX(-10%) rotate(0);
+    }
+
+    50%{
+        transform:translateX(10%) rotate(3deg);
+    }
+}
+
+/* Film texture */
+
+.memory-image::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.025) 0px,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    opacity:.6;
+}
+
+/* Memory silhouette */
+
+.memory-silhouette{
+    position:absolute;
+
+    left:50%;
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    width:55%;
+    height:70%;
+}
+
+/* Head */
+
+.memory-silhouette::before{
+    content:"";
+
+    position:absolute;
+
+    width:95px;
+    height:95px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 40% 35%,
+            #858da5,
+            #353c52 70%
+        );
+
+    left:50%;
+    top:3%;
+
+    transform:translateX(-50%);
+
+    box-shadow:
+        0 0 30px rgba(160,180,230,.15);
+}
+
+/* Body */
+
+.memory-silhouette::after{
+    content:"";
+
+    position:absolute;
+
+    width:210px;
+    height:270px;
+
+    border-radius:
+        100px
+        100px
+        20px
+        20px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #1d2435,
+            #515b75,
+            #151b29
+        );
+
+    left:50%;
+    bottom:-10px;
+
+    transform:translateX(-50%);
+}
+
+/* Memory label */
+
+.memory-label{
+    position:absolute;
+
+    left:25px;
+    right:25px;
+    bottom:25px;
+
+    z-index:5;
+
+    text-align:left;
+}
+
+.memory-number{
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    color:#aab5d2;
+
+    margin-bottom:7px;
+}
+
+.memory-text{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:30px;
+
+    color:white;
+}
+
+/* Scanline */
+
+.scanline{
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+
+    z-index:10;
+
+    animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+    from{
+        top:-5%;
+    }
+
+    to{
+        top:105%;
+    }
+}
+
+/* Film sprocket */
+
+.sprocket{
+    position:absolute;
+
+    top:12px;
+    bottom:12px;
+
+    width:15px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:space-around;
+
+    z-index:20;
+}
+
+.sprocket.left{left:4px}
+.sprocket.right{right:4px}
+
+.sprocket span{
+    width:7px;
+    height:12px;
+
+    border-radius:2px;
+
+    background:rgba(0,0,0,.6);
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* =========================
+   MEMORY TITLE
+========================= */
+
+.memory-note{
+    position:absolute;
+
+    left:50%;
+    bottom:-8%;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    width:75%;
+
+    padding:13px 20px;
+
+    background:
+        rgba(235,230,210,.92);
+
+    color:#20212a;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:18px;
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.4);
+
+    z-index:30;
+}
+
+/* =========================
+   HEARTBEAT
+========================= */
+
+.heartbeat{
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(180,200,255,.2);
+
+    animation:heartbeat 2s ease-in-out infinite;
+}
+
+.heartbeat::before,
+.heartbeat::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border:1px solid rgba(180,200,255,.12);
+
+    border-radius:50%;
+
+    animation:heartbeat 2s ease-in-out infinite;
+}
+
+.heartbeat::after{
+    animation-delay:.6s;
+}
+
+@keyframes heartbeat{
+
+    0%{
+        transform:scale(.5);
+        opacity:0;
+    }
+
+    35%{
+        opacity:1;
+    }
+
+    70%{
+        transform:scale(1.7);
+        opacity:0;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote{
+    max-width:780px;
+    margin:auto;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(28px,5vw,55px);
+
+    line-height:1.35;
+
+    color:#e8edff;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-title{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(55px,12vw,125px);
+
+    font-weight:300;
+
+    line-height:.92;
+
+    text-shadow:
+        0 0 50px rgba(200,215,255,.3);
+}
+
+.final-sub{
+    margin-top:35px;
+
+    font-size:12px;
+
+    letter-spacing:6px;
+
+    color:#b8c3df;
+}
+
+.forever{
+    margin-top:40px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(27px,5vw,45px);
+}
+
+/* =========================
+   CONTINUE
+========================= */
+
+#continue{
+    position:fixed;
+
+    left:50%;
+    bottom:10vh;
+
+    transform:translateX(-50%);
+
+    z-index:1100;
+
+    padding:12px 25px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    background:rgba(10,15,30,.5);
+
+    backdrop-filter:blur(15px);
+
+    color:#dce5ff;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+#continue:active{
+    transform:
+        translateX(-50%)
+        scale(.93);
+}
+
+/* =========================
+   FLASH
+========================= */
+
+#flash{
+    position:fixed;
+    inset:0;
+
+    background:white;
+
+    opacity:0;
+
+    z-index:1200;
+
+    pointer-events:none;
+}
+
+.flash{
+    animation:flash .65s ease;
+}
+
+@keyframes flash{
+    0%{opacity:0}
+    15%{opacity:.7}
+    100%{opacity:0}
+}
+
+/* =========================
+   FINAL GLOW
+========================= */
+
+.final-glow{
+    position:absolute;
+
+    width:400px;
+    height:400px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(150,175,255,.15),
+            transparent 70%
+        );
+
+    animation:finalGlow 3s ease-in-out infinite;
+}
+
+@keyframes finalGlow{
+    0%,100%{
+        transform:scale(.8);
+        opacity:.5;
+    }
+
+    50%{
+        transform:scale(1.3);
+        opacity:1;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .bar{
+        height:5vh;
+    }
+
+    .scene{
+        padding:25px 20px;
+    }
+
+    .small{
+        letter-spacing:3px;
+    }
+
+    .memory-stage{
+        height:450px;
+    }
+
+    .memory-card{
+        inset:8% 5%;
+    }
+
+    .memory-text{
+        font-size:25px;
+    }
+
+    .memory-note{
+        font-size:16px;
+    }
+
+    #continue{
+        bottom:7vh;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bar top"></div>
+<div class="bar bottom"></div>
+
+<div id="stars"></div>
+<div id="moon"></div>
+<div id="particles"></div>
+<div id="rain"></div>
+
+<div id="vignette"></div>
+<div id="grain"></div>
+<div id="flash"></div>
+
+
+<!-- =========================
+     SCENE 1
+========================= -->
+
+<section class="scene active" id="s1">
+
+<div class="content">
+
+<div class="small">
+A story about chosen family
+</div>
+
+<div class="title">
+Not by blood...
+</div>
+
+<div class="subtitle">
+But by heart.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 2
+========================= -->
+
+<section class="scene" id="s2">
+
+<div class="content">
+
+<div class="small">
+Our story
+</div>
+
+<div class="title">
+We weren't born<br>
+into the same family.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 3
+========================= -->
+
+<section class="scene" id="s3">
+
+<div class="content">
+
+<div class="title">
+We didn't share<br>
+the same childhood.
+</div>
+
+<div class="subtitle">
+We didn't grow up<br>
+under the same roof.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MEMORY 1
+========================= -->
+
+<section class="scene" id="s4">
+
+<div class="memory-stage">
+
+<div class="memory-card">
+
+<div class="sprocket left">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="sprocket right">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="memory-image">
+
+<div class="memory-silhouette"></div>
+
+<div class="scanline"></div>
+
+<div class="memory-label">
+
+<div class="memory-number">
+MEMORY 01
+</div>
+
+<div class="memory-text">
+The day we became friends.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="memory-note">
+Some people just become important.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 5
+========================= -->
+
+<section class="scene" id="s5">
+
+<div class="content">
+
+<div class="small">
+And then...
+</div>
+
+<div class="title">
+Somewhere along<br>
+the way...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 6
+========================= -->
+
+<section class="scene" id="s6">
+
+<div class="content">
+
+<div class="heartbeat"></div>
+
+<div class="small">
+Something changed
+</div>
+
+<div class="title">
+You became<br>
+family.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MEMORY 2
+========================= -->
+
+<section class="scene" id="s7">
+
+<div class="memory-stage">
+
+<div class="memory-card"
+style="
+transform:
+rotateX(-5deg)
+rotateY(8deg)
+rotateZ(2deg);
+">
+
+<div class="sprocket left">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="sprocket right">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="memory-image"
+style="
+background:
+linear-gradient(
+135deg,
+#20283d,
+#4a3d4b,
+#111625
+);
+">
+
+<div class="memory-silhouette"
+style="
+transform:
+translateX(-50%)
+scale(.85);
+">
+
+</div>
+
+<div class="scanline"></div>
+
+<div class="memory-label">
+
+<div class="memory-number">
+MEMORY 02
+</div>
+
+<div class="memory-text">
+The memories we never planned.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="memory-note"
+style="transform:translateX(-50%) rotate(2deg);">
+And somehow, they became the best ones.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 8
+========================= -->
+
+<section class="scene" id="s8">
+
+<div class="content">
+
+<div class="small">
+Not because we had to
+</div>
+
+<div class="title">
+Because<br>
+we chose to.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 9
+========================= -->
+
+<section class="scene" id="s9">
+
+<div class="content">
+
+<div class="small">
+You have seen me
+</div>
+
+<div class="subtitle">
+
+My chaos.<br><br>
+My stupid moments.<br><br>
+My good days.<br><br>
+My bad days.
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MEMORY 3
+========================= -->
+
+<section class="scene" id="s10">
+
+<div class="memory-stage">
+
+<div class="memory-card"
+style="
+transform:
+rotateX(5deg)
+rotateY(-6deg)
+rotateZ(-3deg);
+">
+
+<div class="sprocket left">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="sprocket right">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="memory-image"
+style="
+background:
+linear-gradient(
+135deg,
+#151d31,
+#303f5e,
+#101421
+);
+">
+
+<div class="memory-silhouette"
+style="
+transform:
+translateX(-50%)
+scale(1.1);
+">
+
+</div>
+
+<div class="scanline"></div>
+
+<div class="memory-label">
+
+<div class="memory-number">
+MEMORY 03
+</div>
+
+<div class="memory-text">
+The moments that made us us.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="memory-note">
+We laughed. We argued. We stayed.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 11
+========================= -->
+
+<section class="scene" id="s11">
+
+<div class="content">
+
+<div class="small">
+And somehow...
+</div>
+
+<div class="title">
+You stayed.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 12
+========================= -->
+
+<section class="scene" id="s12">
+
+<div class="content">
+
+<div class="small">
+People say family
+</div>
+
+<div class="title">
+Is about blood.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 13
+========================= -->
+
+<section class="scene" id="s13">
+
+<div class="content">
+
+<div class="small">
+Maybe.
+</div>
+
+<div class="quote">
+"But sometimes family is the person who isn't related to you...
+and still feels like home."
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MEMORY 4
+========================= -->
+
+<section class="scene" id="s14">
+
+<div class="memory-stage">
+
+<div class="memory-card">
+
+<div class="sprocket left">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="sprocket right">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="memory-image"
+style="
+background:
+linear-gradient(
+135deg,
+#403b46,
+#172238,
+#090d18
+);
+">
+
+<div class="memory-silhouette"
+style="
+transform:
+translateX(-50%)
+scale(.95);
+">
+
+</div>
+
+<div class="scanline"></div>
+
+<div class="memory-label">
+
+<div class="memory-number">
+MEMORY 04
+</div>
+
+<div class="memory-text">
+Not related. Still inseparable.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="memory-note">
+Some bonds don't need a family tree.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 15
+========================= -->
+
+<section class="scene" id="s15">
+
+<div class="content">
+
+<div class="small">
+So let me say this
+</div>
+
+<div class="title">
+You're not my sister<br>
+by blood.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 16
+========================= -->
+
+<section class="scene" id="s16">
+
+<div class="content">
+
+<div class="small">
+You're something different
+</div>
+
+<div class="title">
+You're my sister<br>
+by heart.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 17
+========================= -->
+
+<section class="scene" id="s17">
+
+<div class="content">
+
+<div class="small">
+From another mother
+</div>
+
+<div class="title">
+And I'm grateful<br>
+for that.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 18
+========================= -->
+
+<section class="scene" id="s18">
+
+<div class="content">
+
+<div class="small">
+Whatever happens
+</div>
+
+<div class="title">
+Whatever life<br>
+throws at us...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 19
+========================= -->
+
+<section class="scene" id="s19">
+
+<div class="content">
+
+<div class="small">
+Remember this
+</div>
+
+<div class="title">
+You've got me.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 20
+========================= -->
+
+<section class="scene" id="s20">
+
+<div class="content">
+
+<div class="small">
+One last thing
+</div>
+
+<div class="title">
+Some people are<br>
+given to us.
+</div>
+
+<div class="subtitle">
+Others are found.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="scene" id="final">
+
+<div class="final-glow"></div>
+
+<div class="content">
+
+<div class="small">
+And I'm glad I found you
+</div>
+
+<div class="final-title">
+My Sister.<br>
+My Family. ❤️
+</div>
+
+<div class="final-sub">
+NOT BY BLOOD
+</div>
+
+<div class="forever">
+BY HEART. FOREVER.
+</div>
+
+</div>
+
+</section>
+
+
+<button id="continue">
+Tap to continue
+</button>
+
+
+<script>
+
+/* =========================
+   SCENES
+========================= */
+
+const scenes=[
+"s1","s2","s3","s4","s5",
+"s6","s7","s8","s9","s10",
+"s11","s12","s13","s14","s15",
+"s16","s17","s18","s19","s20",
+"final"
+];
+
+let current=0;
+let timer;
+
+const durations=[
+4500,
+4500,
+4500,
+6000,
+4000,
+5000,
+6000,
+4500,
+6000,
+6000,
+4000,
+4000,
+6000,
+6000,
+4500,
+4500,
+4500,
+4500,
+4500,
+5000,
+10000
+];
+
+/* =========================
+   STARS
+========================= */
+
+const stars=
+document.getElementById("stars");
+
+for(let i=0;i<180;i++){
+
+    const star=
+    document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=
+    Math.random()*100+"%";
+
+    star.style.top=
+    Math.random()*100+"%";
+
+    star.style.animationDelay=
+    Math.random()*3+"s";
+
+    stars.appendChild(star);
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+const particles=
+document.getElementById("particles");
+
+for(let i=0;i<70;i++){
+
+    const p=
+    document.createElement("div");
+
+    p.className="particle";
+
+    p.style.left=
+    Math.random()*100+"%";
+
+    p.style.animationDuration=
+    7+Math.random()*10+"s";
+
+    p.style.animationDelay=
+    Math.random()*8+"s";
+
+    particles.appendChild(p);
+}
+
+/* =========================
+   RAIN
+========================= */
+
+const rain=
+document.getElementById("rain");
+
+for(let i=0;i<90;i++){
+
+    const drop=
+    document.createElement("div");
+
+    drop.className="drop";
+
+    drop.style.left=
+    Math.random()*100+"%";
+
+    drop.style.animationDuration=
+    .5+Math.random()*.8+"s";
+
+    drop.style.animationDelay=
+    Math.random()*2+"s";
+
+    rain.appendChild(drop);
+}
+
+/* =========================
+   SHOOTING STARS
+========================= */
+
+function shootingStar(){
+
+    const star=
+    document.createElement("div");
+
+    star.className="shooting-star";
+
+    star.style.left=
+    60+Math.random()*40+"%";
+
+    star.style.top=
+    Math.random()*50+"%";
+
+    document.body.appendChild(star);
+
+    setTimeout(()=>{
+        star.remove();
+    },1600);
+}
+
+setInterval(()=>{
+
+    if(Math.random()>.4){
+        shootingStar();
+    }
+
+},4500);
+
+/* =========================
+   SCENE CHANGE
+========================= */
+
+function showScene(index){
+
+    if(index<0)
+        index=0;
+
+    if(index>=scenes.length)
+        index=scenes.length-1;
+
+    const oldScene=
+    document.getElementById(
+        scenes[current]
+    );
+
+    const newScene=
+    document.getElementById(
+        scenes[index]
+    );
+
+    if(oldScene){
+
+        oldScene.classList.remove("active");
+
+        oldScene.classList.add("exit");
+
+        setTimeout(()=>{
+
+            oldScene.classList.remove("exit");
+
+        },1600);
+    }
+
+    newScene.classList.add("active");
+
+    current=index;
+
+    sceneEffects(index);
+
+    resetTimer();
+}
+
+/* =========================
+   EFFECTS
+========================= */
+
+function sceneEffects(index){
+
+    const flash=
+    document.getElementById("flash");
+
+    flash.classList.remove("flash");
+
+    void flash.offsetWidth;
+
+    flash.classList.add("flash");
+
+    /* Rain during emotional section */
+
+    if(index>=9 && index<=17){
+
+        rain.style.opacity=".42";
+
+    }else{
+
+        rain.style.opacity="0";
+
+    }
+
+    /* Final shooting stars */
+
+    if(index===scenes.length-1){
+
+        for(let i=0;i<12;i++){
+
+            setTimeout(()=>{
+                shootingStar();
+            },i*350);
+
+        }
+
+    }
+}
+
+/* =========================
+   AUTO PLAY
+========================= */
+
+function resetTimer(){
+
+    clearTimeout(timer);
+
+    timer=setTimeout(()=>{
+
+        if(current<scenes.length-1){
+
+            showScene(current+1);
+
+        }
+
+    },durations[current]);
+}
+
+/* =========================
+   CONTINUE
+========================= */
+
+document
+.getElementById("continue")
+.addEventListener("click",()=>{
+
+    clearTimeout(timer);
+
+    if(current<scenes.length-1){
+
+        showScene(current+1);
+
+    }
+
+});
+
+/* =========================
+   TAP PARTICLES
+========================= */
+
+document.addEventListener(
+"pointerdown",
+e=>{
+
+    for(let i=0;i<9;i++){
+
+        const p=
+        document.createElement("div");
+
+        p.style.position="fixed";
+
+        p.style.left=
+        e.clientX+"px";
+
+        p.style.top=
+        e.clientY+"px";
+
+        p.style.width="4px";
+        p.style.height="4px";
+
+        p.style.borderRadius="50%";
+
+        p.style.background="#fff";
+
+        p.style.zIndex="1500";
+
+        p.style.pointerEvents="none";
+
+        const angle=
+        Math.random()*Math.PI*2;
+
+        const distance=
+        30+Math.random()*70;
+
+        p.animate(
+        [
+            {
+                transform:"translate(0,0)",
+                opacity:1
+            },
+            {
+                transform:
+                `translate(
+                    ${Math.cos(angle)*distance}px,
+                    ${Math.sin(angle)*distance}px
+                )`,
+                opacity:0
+            }
+        ],
+        {
+            duration:700,
+            easing:"ease-out"
+        });
+
+        document.body.appendChild(p);
+
+        setTimeout(()=>{
+            p.remove();
+        },700);
+    }
+
+});
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+"keydown",
+e=>{
+
+    if(
+        e.key==="ArrowRight" ||
+        e.key===" "
+    ){
+
+        e.preventDefault();
+
+        clearTimeout(timer);
+
+        if(current<scenes.length-1){
+
+            showScene(current+1);
+
+        }
+
+    }
+
+    if(e.key==="ArrowLeft"){
+
+        clearTimeout(timer);
+
+        if(current>0){
+
+            showScene(current-1);
+
+        }
+
+    }
+
+});
+
+/* =========================
+   START
+========================= */
+
+showScene(0);
+
+</script>
+
+</body>
+</html>
